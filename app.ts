@@ -1,0 +1,37 @@
+import express from "express";
+import cors from "cors";
+import config from "./src/config";
+import morgan from "morgan";
+import interviewRoute from "./src/routes/interview";
+import startInterview from "./src/routes/start";
+import clearmap from "./src/utils/clear";
+import testCode from "./src/routes/submitCode";
+import endhere from "./src/routes/end";
+const app = express();
+
+app.use(morgan("dev"));           
+app.use(cors());                  
+app.use(express.json());          
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/interview",startInterview);
+app.use("/interview",interviewRoute);
+app.use("/interview",endhere);
+app.use("/test",testCode);
+app.use("/map",clearmap);
+
+
+app.get("/",(req,res)=>{
+  res.send('Welcome to AI Interview....');
+})
+
+
+
+
+
+ app.listen(config.PORT, () => {
+    // eslint-disable-next-line no-console
+    return console.log(
+      `Express is listening at http://localhost:${config.PORT}`,
+    );
+  });
