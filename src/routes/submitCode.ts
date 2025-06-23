@@ -14,8 +14,8 @@ router.post("/code", async (req, res): Promise<any> => {
 
   const messages = getSessionMessages(sessionId);
   addMessageToSession(sessionId, {
-    role: "user",
-    content: `Here is my code for the problem you presented:
+    role: "system",
+    content: `Here is the code for the problem you presented that the candidate has submitted:
 
 \`\`\`
 ${code}
