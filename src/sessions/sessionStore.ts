@@ -1,4 +1,4 @@
-type Message = { role: "system" | "user" | "assistant"; content: string };
+export type Message = { role: "system" | "user" | "assistant"; content: string };
 
 export const sessionStore: Record<string, Message[]> = {};
 

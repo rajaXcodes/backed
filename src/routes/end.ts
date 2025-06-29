@@ -5,6 +5,7 @@ import {
 import axios from "axios";
 import config from "../config";
 import { Router } from "express";
+import { askAI } from "../services/aiService";
 const router = Router();
 
 const prompt = ` The interview has now concluded. Please now provide a structured and **realistic** final evaluation of the candidate based on their actual performance throughout the DSA interview.
@@ -60,22 +61,12 @@ router.post("/end", async (req, res): Promise<any> => {
   addMessageToSession(sessionId, { role: "user", content: prompt });
 
   try {
-    const response = await axios.post(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        model: "openai/gpt-3.5-turbo",
-        messages,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${config.OPENROUTER.APIKEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await askAI(messages);
+    const data = await response.json();
 
-    const aiReply = response.data.choices[0].message.content;
-    console.log(aiReply);
+    const aiReply = data.choices[0].message.content;
+
+    // console.log(aiReply);
     addMessageToSession(sessionId, { role: "assistant", content: aiReply });
     res.json({ reply: aiReply });
   } catch (err: any) {

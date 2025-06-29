@@ -5,6 +5,8 @@ import {
   getSessionMessages,
 } from "../sessions/sessionStore";
 import axios from "axios";
+import { askAI } from "../services/aiService";
+import { rmSync } from "fs";
 
 const router = Router();
 
@@ -35,21 +37,11 @@ Make sure your response is structured, concise, and realistic, just like a real 
   });
 
   try {
-    const response = await axios.post(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        model: "openai/gpt-3.5-turbo",
-        messages,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${config.OPENROUTER.APIKEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await askAI(messages);
 
-    const aiReply = response.data.choices[0].message.content;
+    const data = await response.json();
+
+    const aiReply = data.choices[0].message.content;
     addMessageToSession(sessionId, { role: "assistant", content: aiReply });
 
     res.json({ finalEvaluation: aiReply });
