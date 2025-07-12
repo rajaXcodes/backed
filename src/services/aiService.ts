@@ -12,6 +12,7 @@ export async function askAI(messages: Message[]) {
       },
       body: JSON.stringify({
         model: "meta-llama/llama-3.1-8b-instruct",
+        max_token: 30,
         messages,
       }),
     }

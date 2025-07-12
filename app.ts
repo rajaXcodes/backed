@@ -7,6 +7,7 @@ import startInterview from "./src/routes/start";
 import clearmap from "./src/utils/clear";
 import testCode from "./src/routes/submitCode";
 import endhere from "./src/routes/end";
+import login from "./src/routes/login";
 const app = express();
 
 app.use(morgan("dev"));           
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());          
 app.use(express.urlencoded({ extended: true }));
 
+app.use("",login);
 app.use("/interview",startInterview);
 app.use("/interview",interviewRoute);
 app.use("/interview",endhere);

@@ -4,9 +4,7 @@ import {
   addMessageToSession,
   getSessionMessages,
 } from "../sessions/sessionStore";
-import axios from "axios";
 import { askAI } from "../services/aiService";
-import { rmSync } from "fs";
 
 const router = Router();
 

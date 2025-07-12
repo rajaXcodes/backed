@@ -11,7 +11,7 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign({ username }, config.JWT.SECRET_KEY as Secret, {
     expiresIn: "5h",
   });
-  res.json({ token });
+  res.json({ token : token });
 });
 
 export default router;
