@@ -29,7 +29,7 @@ app.use("/interview", endhere);
 app.use("/map", clearmap);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to AI Interview....");
+  res.send("Welcome to Algo Mentor....");
 });
 
 app.get("/health", (_req, res) => {
